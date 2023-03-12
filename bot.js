@@ -132,6 +132,17 @@ bot.on("message", async (ctx) => {
     const firstSong = searches[0];
     let lyrics = await firstSong.lyrics();
 
+    if (!lyrics) {
+      await ctx.reply(
+        "*No lyrics found. Are you sure you entered a correct song?*",
+        {
+          parse_mode: "Markdown",
+          reply_to_message_id: ctx.message.message_id,
+        }
+      );
+      return;
+    }
+
     // GPT
 
     async function sendMessageWithTimeout(ctx) {
