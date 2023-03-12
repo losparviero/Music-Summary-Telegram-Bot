@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { Bot, sessions, webhookCallback, GrammyError, HttpError } from "grammy";
+import { Bot, GrammyError, HttpError } from "grammy";
 import { run } from "@grammyjs/runner";
 import { ChatGPTAPI } from "chatgpt";
 import Genius from "genius-lyrics";
