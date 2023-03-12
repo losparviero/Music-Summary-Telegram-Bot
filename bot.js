@@ -61,8 +61,8 @@ bot.command("start", async (ctx) => {
 bot.command("help", async (ctx) => {
   await ctx
     .reply(
-      "*@anzubo Project.*\n\n_This bot use GPT to summarize song lyrics._",
-      { parse_mode: "Markdown" }
+      "*@anzubo Project.*\n\n_This bot uses GPT to summarize song lyrics.\nAll songs that have lyrics on Genius.com are supported._",
+      { parse_mode: "Markdown", disable_web_page_preview: true }
     )
     .then(console.log("Help command sent to", ctx.chat.id));
 });
