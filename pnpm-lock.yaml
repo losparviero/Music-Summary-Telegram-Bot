@@ -1,12 +1,14 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@grammyjs/runner': ^1.0.4
   chatgpt: ^5.0.10
   dotenv: ^16.0.3
   genius-lyrics: ^4.4.3
   grammy: ^1.15.1
 
 dependencies:
+  '@grammyjs/runner': 1.0.4
   chatgpt: 5.0.10
   dotenv: 16.0.3
   genius-lyrics: 4.4.3
@@ -37,6 +39,13 @@ packages:
 
   /@dqbd/tiktoken/0.4.0:
     resolution: {integrity: sha512-iaHgmwKAOqowBFZKxelyszoeGLoNw62eOULcmyme1aA1Ymr3JgYl0V7jwpuUm7fksalycZajx3loFn9TRUaviw==}
+    dev: false
+
+  /@grammyjs/runner/1.0.4:
+    resolution: {integrity: sha512-77IE+2Gg0UHa9MNZ8wsculxJpzUDcHTrMg7OLbKoQ8jWKFxX78sdxRBwL+FK3NvHZ15YnXsnxesV43xgbOhteA==}
+    engines: {node: '>=12.20.0 || >=14.13.1'}
+    dependencies:
+      abort-controller: 3.0.0
     dev: false
 
   /@grammyjs/types/3.0.2:

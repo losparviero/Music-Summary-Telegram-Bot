@@ -1,8 +1,9 @@
 {
 	"dependencies": {
-		"genius-lyrics": "^4.4.3",
+		"@grammyjs/runner": "^1.0.4",
 		"chatgpt": "^5.0.10",
 		"dotenv": "^16.0.3",
+		"genius-lyrics": "^4.4.3",
 		"grammy": "^1.15.1"
 	},
 	"type": "module"
