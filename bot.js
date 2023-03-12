@@ -199,6 +199,19 @@ bot.on("message", async (ctx) => {
       }
       console.log(`Error sending message: ${error.message}`);
       return;
+    } else if (
+      error.message.includes(
+        "Cannot read properties of undefined (reading 'lyrics')"
+      )
+    ) {
+      await ctx.reply(
+        "*No lyrics found. Are you sure you entered a correct song?*",
+        {
+          parse_mode: "Markdown",
+          reply_to_message_id: ctx.message.message_id,
+        }
+      );
+      return;
     } else {
       console.log(`An error occured:`, error);
       await ctx.reply(`*An error occurred.*\n_Error: ${error.message}_`, {
