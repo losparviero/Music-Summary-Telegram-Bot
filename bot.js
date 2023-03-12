@@ -150,7 +150,6 @@ bot.on("message", async (ctx) => {
         await ctx.reply(
           `*Summary of ${firstSong.fullTitle}*\n\n${result.text}`,
           {
-            reply_to_message_id: ctx.message.message_id,
             parse_mode: "Markdown",
           }
         );
