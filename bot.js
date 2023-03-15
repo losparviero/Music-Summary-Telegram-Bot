@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import { Bot, session, GrammyError, HttpError } from "grammy";
 import { run, sequentialize } from "@grammyjs/runner";
+import { hydrate } from "@grammyjs/hydrate";
 import { ChatGPTAPI } from "chatgpt";
 import Genius from "genius-lyrics";
 
@@ -29,15 +30,6 @@ bot.use(async (ctx, next) => {
   await next();
 });
 
-// Concurrency
-
-function getSessionKey(ctx) {
-  return ctx.chat?.id.toString();
-}
-
-bot.use(sequentialize(getSessionKey));
-bot.use(session({ getSessionKey }));
-
 // Response
 
 async function responseTime(ctx, next) {
@@ -48,6 +40,18 @@ async function responseTime(ctx, next) {
 }
 
 bot.use(responseTime);
+
+// Concurrency
+
+function getSessionKey(ctx) {
+  return ctx.chat?.id.toString();
+}
+
+// Plugins
+
+bot.use(sequentialize(getSessionKey));
+bot.use(session({ getSessionKey }));
+bot.use(hydrate());
 
 // Commands
 
@@ -77,23 +81,6 @@ bot.command("help", async (ctx) => {
     .then(console.log("Help command sent to", ctx.chat.id));
 });
 
-// Misc
-
-bot.command("cmd", async (ctx) => {
-  if (!ctx.chat.type == "private") {
-    await bot.api.sendMessage(
-      ctx.chat.id,
-      "*Channels and groups are not supported presently.*",
-      { parse_mode: "Markdown" }
-    );
-    return;
-  }
-  await ctx.reply(
-    "*Here are the commands available:\n\nUsers*\n_/start Start the bot\n/help Know more_\n\n*Admins*\n_/add [id] Authorize user\n/ban [id] Ban user_",
-    { parse_mode: "Markdown" }
-  );
-});
-
 // Messages
 
 bot.on("message", async (ctx) => {
@@ -108,8 +95,6 @@ bot.on("message", async (ctx) => {
     `From: ${name} (@${from.username}) ID: ${from.id}\nMessage: ${ctx.message.text}`
   );
 
-  // Logic
-
   if (!ctx.config.isAdmin) {
     await bot.api.sendMessage(
       process.env.AUTHORIZED_USERS,
@@ -118,23 +103,12 @@ bot.on("message", async (ctx) => {
     );
   }
 
-  // Status
+  // Logic
 
   try {
     const statusMessage = await ctx.reply(`*Summarising*`, {
       parse_mode: "Markdown",
     });
-    async function deleteMessageWithDelay(fromId, messageId, delayMs) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          bot.api
-            .deleteMessage(fromId, messageId)
-            .then(() => resolve())
-            .catch((error) => reject(error));
-        }, delayMs);
-      });
-    }
-    await deleteMessageWithDelay(ctx.chat.id, statusMessage.message_id, 3000);
 
     // Genius
 
@@ -191,6 +165,7 @@ bot.on("message", async (ctx) => {
     }
 
     await sendMessageWithTimeout(ctx);
+    await statusMessage.delete();
   } catch (error) {
     if (error instanceof GrammyError) {
       if (error.message.includes("Forbidden: bot was blocked by the user")) {
