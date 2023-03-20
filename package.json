@@ -1,11 +1,35 @@
 {
-	"dependencies": {
-		"@grammyjs/hydrate": "^1.3.1",
-		"@grammyjs/runner": "^1.0.4",
-		"chatgpt": "^5.0.10",
-		"dotenv": "^16.0.3",
-		"genius-lyrics": "^4.4.3",
-		"grammy": "^1.15.1"
-	},
-	"type": "module"
+  "dependencies": {
+    "@grammyjs/hydrate": "^1.3.1",
+    "@grammyjs/parse-mode": "^1.6.0",
+    "@grammyjs/runner": "^1.0.4",
+    "@waylaidwanderer/chatgpt-api": "^1.31.6",
+    "dotenv": "^16.0.3",
+    "genius-lyrics": "^4.4.3",
+    "grammy": "^1.15.1"
+  },
+  "type": "module",
+  "name": "musicsummary",
+  "description": "Get summary of the lyrics of any song in Telegram, powered by GPT!",
+  "version": "1.0.0",
+  "main": "bot.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Grahtni/Music-Summary-Telegram-Bot.git"
+  },
+  "author": {
+    "name": "Zubin",
+    "email": "me@zubin.org.in",
+    "url": "https://zubin.org.in"
+  },
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Grahtni/Music-Summary-Telegram-Bot/issues"
+  },
+  "homepage": "https://github.com/Grahtni/Music-Summary-Telegram-Bot#readme"
 }
